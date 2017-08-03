@@ -25,13 +25,6 @@ set_hostname:
     - onchanges:
       - file: /etc/hosts
       - file: /etc/hostname
-{% else %}
-set_hostname:
-  cmd.run:
-    - name: hostname -b salt
-    - onchanges:
-      - file: /etc/hosts
-      - file: /etc/hostname
 {% endif %}
 
 /etc/hosts:

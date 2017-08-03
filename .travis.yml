@@ -15,12 +15,12 @@ env:
 script:
   - bundle exec docker version
   - bundle exec kitchen --version
-  - KITCHEN_YAML=.kitchen-docker.yml kitchen converge ${INSTANCE} ;\
-      KITCHEN_YAML=.kitchen-docker.yml kitchen exec ${INSTANCE} -c "salt \* state.highstate" ;\
-      KITCHEN_YAML=.kitchen-docker.yml kitchen exec ${INSTANCE} -c "salt \* state.highstate" ;\
-      KITCHEN_YAML=.kitchen-docker.yml kitchen exec ${INSTANCE} -c "salt \* state.highstate" ;\
-      KITCHEN_YAML=.kitchen-docker.yml kitchen verify ${INSTANCE} ;\
-      KITCHEN_YAML=.kitchen-docker.yml kitchen destroy ${INSTANCE}
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen converge ${INSTANCE}
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen exec ${INSTANCE} -c "salt \* state.highstate"
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen exec ${INSTANCE} -c "salt \* state.highstate"
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen exec ${INSTANCE} -c "salt \* state.highstate"
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen verify ${INSTANCE}
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen destroy ${INSTANCE}
 
 after_script:
   - docker images
