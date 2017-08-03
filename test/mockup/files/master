@@ -1,0 +1,13 @@
+file_roots:
+  base:
+    - /tmp/kitchen/srv/salt/
+    - /tmp/assets
+
+fileserver_backend:
+  - roots
+
+pillar_roots:
+  base:
+    - /tmp/kitchen/srv/pillar/
+
+autosign_file: /etc/salt/autosign

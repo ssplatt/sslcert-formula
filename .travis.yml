@@ -1,0 +1,28 @@
+sudo: required
+dist: trusty
+language: ruby
+
+bundler_args: --without='vagrant linode'
+
+services:
+  - docker
+
+env:
+  matrix:
+  - INSTANCE=default
+  - INSTANCE=custom
+
+script:
+  - bundle exec docker version
+  - bundle exec kitchen --version
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen converge ${INSTANCE}
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen exec ${INSTANCE} -c "salt \* state.highstate"
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen exec ${INSTANCE} -c "salt \* state.highstate"
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen exec ${INSTANCE} -c "salt \* state.highstate"
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen verify ${INSTANCE}
+  - KITCHEN_YAML=.kitchen-docker.yml kitchen destroy ${INSTANCE}
+
+after_script:
+  - docker images
+  - docker ps -a
+  - cat .kitchen/logs/kitchen.log

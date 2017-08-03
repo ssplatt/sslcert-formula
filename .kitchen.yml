@@ -1,0 +1,33 @@
+# vim: ft=yaml
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: salt_solo
+  salt_bootstrap_options: -M -i salt
+  is_file_root: true
+  salt_copy_filter:
+    - .kitchen
+    - .git
+  state_top:
+    base:
+      "*":
+        - test.mockup
+        - sslcert
+
+platforms:
+  - name: bento/debian-8.8
+
+suites:
+  - name: default
+
+  - name: custom
+    provisioner:
+      pillars-from-files:
+        sslcert.sls: pillar-custom.sls
+      pillars:
+        top.sls:
+          base:
+            "*":
+              - sslcert

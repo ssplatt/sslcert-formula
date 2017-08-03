@@ -1,0 +1,13 @@
+# vim: ft=yaml
+# Defaults for sslcert
+
+sslcert:
+  enabled: true
+  pki_dir: /etc/pki
+  ca_minion_id: salt
+  keytool: /usr/bin/keytool
+  ca_cache_root: /tmp/assets
+  pkg_deps:
+    - python-m2crypto
+  jre_pkg: openjdk-7-jre-headless
+  trust: {}
