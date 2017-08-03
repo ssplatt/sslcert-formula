@@ -1,4 +1,6 @@
 # sslcert-formula
+[![Build Status](https://travis-ci.org/ssplatt/sslcert-formula.svg?branch=master)](https://travis-ci.org/ssplatt/sslcert-formula)
+
 Run an internal CA and automatically generate certificates for minions.
 
 The things in test/mockup{/files} all need to be in place to process requests and most likely should be configured using other formulas in production (i.e. saltstack-formula for the master and minion config things).
