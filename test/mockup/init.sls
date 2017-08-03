@@ -18,17 +18,32 @@ haveged:
     - contents:
       - salt
 
+{% if grains.init == "systemd" %}
 set_hostname:
-  cmd.wait:
+  cmd.run:
     - name: hostnamectl set-hostname salt
-    - watch:
+    - onchanges:
       - file: /etc/hosts
+      - file: /etc/hostname
+{% else %}
+set_hostname:
+  cmd.run:
+    - name: hostname -b salt
+    - onchanges:
+      - file: /etc/hosts
+      - file: /etc/hostname
+{% endif %}
 
 /etc/hosts:
   file.managed:
     - contents:
       - 127.0.0.1 salt localhost debian
       - 127.0.1.1 salt localhost debian
+
+/etc/hostname:
+  file.managed:
+    - contents:
+      - salt
 
 salt-minion:
   service.running:
@@ -47,5 +62,9 @@ salt-master:
       - file: /etc/hosts
 
 vagrant:
+  user.present:
+    - gid_from_name: True
+
+kitchen:
   user.present:
     - gid_from_name: True
